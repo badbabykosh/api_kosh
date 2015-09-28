@@ -1,42 +1,44 @@
-module  API
+module API
   module V1
     class QuotesController < ApplicationController
-      # Well-written APIs are RESTful - data is organized into resources,
-      # and the API exposes CRUD actions for each resource. In Rails APIs,
-      # that means providing 5 basic actions - index, show, create, update, and destroy.
-      def index
-        @quotes = Quote.all
-      end
+      before_action :find_quote, only: [:show,:update,:destroy]
 
-      def show
-        @quote = Quote.find(params[:id])
+      def index
+        @episode = Episode.find(params[:episode_id])
+        @quotes = @episode.quotes
       end
 
       def create
-        @quote = Quote.new(???)
+        @episode = Episode.find(params[:episode_id])
+        position = if (@episode.quotes.size > 0) then (@episode.quotes.last + 1) else 1 end
+        @quote = Quote.new(position: position, episode_id: params[:episode_id], content: params[:quote][:content])
         if @quote.save
-          render 'show', formats: [:json], handlers: [:jbuilder], status: 201
+          render 'show', formats: [:json], handlers: [:jbuilder], status: 201 # <--created: status codes http://mzl.la/1mr22Ed
         else
-          render json: {error: 'sorry quote could not be created'}, status:422
+          render json: {error: "Sorry, quote can not be created"}, status: 422 # <--422 vs 400 http://bit.ly/1LY7Xug
         end
       end
 
       def update
-        @quote = Quote.find(params[:id])
-        if @quote.update_attributes(???)
+        if @quote.update_attributes(content: params[:quote][:content])
           render 'show', formats: [:json], handlers: [:jbuilder], status: 201
         else
-          render json: {error: 'sorry quote could not be created'}, status:422
+          render json: {error: "Quote not updated"}, status: 422
         end
       end
 
       def destroy
-        @quote = Quote.find(params[:id])
         if @quote.destroy
-          render json: {}, status: 200
+          render json: {}, status: 200 #<--OK: status codes http://mzl.la/1mr22Ed
         else
-          render json: {error: 'sorry quote could not be deleted'}, status:422
+          render json: {error: "not deleted"}, status: 422
         end
+      end
+
+      private
+
+      def find_quote
+        @quote = Quote.find(params[:id])
       end
     end
   end

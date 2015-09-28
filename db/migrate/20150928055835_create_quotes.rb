@@ -3,7 +3,7 @@ class CreateQuotes < ActiveRecord::Migration
     create_table :quotes do |t|
       t.string :content
       t.integer :position
-      t.integer :story_id
+      t.integer :episode_id
 
       t.timestamps null: false
     end

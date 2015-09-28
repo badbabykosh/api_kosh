@@ -25,20 +25,9 @@ ActiveRecord::Schema.define(version: 20150928055835) do
   create_table "quotes", force: :cascade do |t|
     t.string   "content"
     t.integer  "position"
-    t.integer  "story_id"
+    t.integer  "episode_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.string   "password"
-    t.string   "password_confirmation"
-    t.string   "temp_password"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
   end
 
 end
