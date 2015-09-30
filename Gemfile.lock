@@ -89,6 +89,8 @@ GEM
     pry-rails (0.3.2)
       pry (>= 0.9.10)
     rack (1.6.4)
+    rack-jsonp-middleware (0.0.10)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.1)
@@ -165,6 +167,7 @@ DEPENDENCIES
   kaminari
   pg
   pry-rails
+  rack-jsonp-middleware
   rails (= 4.2.1)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
