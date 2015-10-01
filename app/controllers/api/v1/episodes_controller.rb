@@ -6,7 +6,6 @@ module API
       # that means providing 5 basic actions - index, show, create, update, and destroy.
       before_action :find_episode, only: [:show,:update,:destroy]
 
-
       def index
         @episodes = Episode.includes(:quotes).page(params[:page])
       end
