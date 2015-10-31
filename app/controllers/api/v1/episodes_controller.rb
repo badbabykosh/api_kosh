@@ -5,7 +5,7 @@ module API
       # and the API exposes CRUD actions for each resource. In Rails APIs,
       # that means providing 5 basic actions - index, show, create, update, and destroy.
       before_action :find_episode, only: [:show,:update,:destroy]
-
+# Todo create a getContent before_filter that sends back the output like forismatic
       def index
         @episodes = Episode.includes(:quotes).page(params[:page])
       end
